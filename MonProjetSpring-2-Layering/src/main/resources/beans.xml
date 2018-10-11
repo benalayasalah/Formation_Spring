@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+	<!-- Date Access Layer beans -->
+	<bean id="repo_fake"
+		class="com.btk.dataaccess.CompteRepositoryImp_Fake"></bean>
+
+
+
+	<!-- Business Layer Beans -->
+	<bean id="bo" class="com.btk.business.CompteBusinessImpl">
+		<property name="repository" ref="repo_fake"></property>
+	</bean>
+
+	<!-- Presentation(Client) Layer Beans -->
+	<bean id="ClientConsole" class="com.btk.client.ClientConsole">
+		<property name="business" ref="bo"></property>
+	</bean>
+</beans>

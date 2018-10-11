@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+
+
+	<!-- Chargement du fichier database.properties -->
+
+	<context:property-placeholder
+		location="database.properties" />
+
+
+
+
+	<bean name="dataSource_jdbc"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+		<property name="driverClassName" value="${jdbc.driver}"></property>
+	</bean>
+
+
+	<bean name="dataSource_HIKARICP"
+		class="com.zaxxer.hikari.HikariDataSource">
+		<property name="jdbcUrl" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+		<property name="driverClassName" value="${jdbc.driver}"></property>
+		<property name="minimumIdle" value="5"></property>
+		<property name="maximumPoolSize" value="10"></property>
+	</bean>
+
+
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource_HIKARICP"></property>
+
+		<property name="hibernateProperties">
+
+			<props>
+				<prop key="hibernate.show_sql">
+					true
+				</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+			</props>
+
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.btk.domain.Compte</value>
+			</list>
+		</property>
+	</bean>
+
+
+
+</beans>
