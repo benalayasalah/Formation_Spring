@@ -17,7 +17,7 @@ import com.btk.business.ICompteBusiness;
 import com.btk.domain.Compte;
 
 @RestController
-@RequestMapping("/compte")// pour préfixer toutes les pages par /compte
+@RequestMapping("/compte")
 public class CompteRestController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -25,7 +25,7 @@ public class CompteRestController {
 	@Autowired
 	private ICompteBusiness business;
 
-	@GetMapping() //on peut ajouter un mapping pour que cette methode soit consultable sous /compte/param
+	@GetMapping()
 	public List<Compte> tousLesComptes() {
 		return business.tousLesComptes();
 	}
